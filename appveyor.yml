@@ -1,0 +1,18 @@
+version: 1.0.{build}
+
+environment:
+  ftpUserName:
+    secure: dQuBuJ2BlMzcGe728IgebPGMOl83gSI6/rVtj/gbygA=
+  ftpUserPWD:
+    secure: 8+j+j/jLYyWjx7U+sXNS7tBXbRPelbDeioaRpFLSS3t01O7HxjeITx4p5+T2SQFQXUzbWhwtSTwQ+Pk9WufQXA==
+  ftpServerAddress:
+    secure: TSHn3tErShrciaks6Z/WpzRPAp2EllAIgTPW2oPoGLyAdC0IDpKnMlqSdfY7Tikc
+
+install:
+- cmd: choco install winscp -y
+- cmd: set path=c:\Program Files (x86)\WinSCP;%path
+
+build: off
+
+deploy_script:
+- cmd: WinSCP.com /command "open ftp://%ftpUserName%:%ftpUserPWD%@%ftpServerAddress%" "put FilesToUpload\* /site/wwwroot/" "exit"
